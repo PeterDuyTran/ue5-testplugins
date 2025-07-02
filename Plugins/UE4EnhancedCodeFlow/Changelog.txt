@@ -1,0 +1,216 @@
+###### 3.5.4
+* Better detection of if the compiler supports coroutines or not.
+* ECF_WITH_COROUTINES macro added for excluding coroutine code for compilers that do not support them.
+
+###### 3.5.3
+* Using static delegates in timeline interp functions instead of dynamic ones
+
+###### 3.5.2
+* The FAB link was correct in the end...
+
+###### 3.5.1
+* Added more tracers for Unreal Insight
+* Fixed compilation for compilers not supporting coroutines
+* Changed order of the Copmlete and MarkAsFinished order. Now MarkAsFinished is called first, then Complete. 
+  Thanks to this, when the game receives the completion callback it is no longer possible to perform any operation on
+  the action which will be invalid  soon anyway.
+* Printing to log for better visibility of what ECF is doing
+* Small comments and documentation fixes
+* Fixed FAB link
+
+###### 3.5.0
+* Function to reset Actions added
+* Action handle of the coroutine is now stored in the coroutine promise, and can be easily obtain when starting a coroutine and used to control the started Action.
+* WaitAndExecute and WaitAndExecute_WithDeltaTime has been merged into one single action with multiple Setups
+
+###### 3.4.0
+* AddTimelineVector action added
+* AddTimelineLinearColor action added
+* AddCustomTimelineVector action added
+* AddCustomTimelineLinearColor action added
+
+###### 3.3.13
+* uplugin fixes to prepare it for FAB
+
+###### 3.3.12
+* Fixed shadow variable warnings which failed compilation with clang.
+
+###### 3.3.11
+* Proper coroutine handle destruction for dangling handles.
+
+###### 3.3.10
+* Reverted coroutines explicit destroy from 3.3.6 as it was breaking the heap allocator when running Garbage Collector.
+
+###### 3.3.9
+* Fixed ECFHandle badly passed to the coroutine action.
+* Ensuring coroutine handles are valid before resuming them.
+
+###### 3.3.8
+* Fixed coroutines compilation for the environment without coroutines support (which has been broken in 3.3.6).
+
+###### 3.3.7
+* Almost every action got alternative callbacks with the less amount of parameters that might not always be needed and are just confusing.
+* Better commented callbacks parameters.
+
+###### 3.3.6
+* Properly destroying coroutine handlers for actions that has been aborted.
+* Renamed CoroutineTasks to CoroutineAwaiters to keep proper naming conventions.
+
+###### 3.3.5
+* Removed few redundant IsInGameThread checks.
+
+###### 3.3.4
+* Fixed bad IsInGameThread check when starting a coroutine.
+
+###### 3.3.3
+* More strict checks for proxy validity in all Async Blueprint nodes.
+* Prevent from starting any action from a non game thread.
+* Ensure the Run Async And Wait object is still valid after exiting another thread.
+
+###### 3.3.2
+* Further fixes to prepare the plugin to be compiled for a marketplace. Tests against UE5.4.
+
+###### 3.3.1
+* Fixes to prepare the plugin to be compiled for a marketplace
+
+###### 3.3.0
+* Run Async Then action has been added, which allows to run code on a separate thread and waiting for it's completion.
+* Run Async And Wait coroutine has been added, which is a coroutine version of Run Async Then
+* Moved coroutine files to a separate directory to keep everything more organized
+* Updated year in every file copyright note
+
+###### 3.2.0
+* COROUTINES! Now you can implement coroutine actions if your compiler supports c++20 (for UE5.3 and later).
+* WaitSeconds coroutine added.
+* WaitTicks coroutine added.
+* WaitUntil coroutine added.
+* Fixed lack of initial values of variables in multiple actions.
+* Minor improvements to comments for functions in main header.
+
+###### 3.1.1
+* ECF subsystem is now a GameInstance Subsystem instead of the World Subsystem. 
+  This will allow the ECF to be used in other GameInstance Subsystems which might work between game worlds.
+
+###### 3.1.0
+* DelayTicks action has been added, which executes the given action after the specified amount of ticks.
+* Additional WaitAndExecute function wich DeltaTime value in a predicate.
+* Better class naming: ECFTicker2 -> ECFTicker_WithHandle.
+* Better Predicate BP nodes naming.
+* Deprecation warning fix for UE5.0.
+* Some fixes in code comments.
+
+###### 3.0.4
+* Deprecation fix for UE5.2 when disabling optimizations.
+
+###### 3.0.3
+* Deprecation fix for UE5.3.
+
+###### 3.0.2
+* More detailed stats added.
+* Readme and comments fixes.
+
+###### 3.0.1
+* Fixed possible memory leaks when using BP functions.
+* Added more stats to control memory usage.
+* Added Unreal Insight cpu tracing for tick function.
+
+###### 3.0.0
+* This version will probably break compatiblity with the previous one. Update with caution!
+* WorldContextObjects and Action Owners are passed as const UObject* now.
+* Added option to setup TimeOuts for WaitAndExecute and WhileTrueExecute actions.
+* Added bStopped property to every completion callback that informs if the action was stopped manually.
+* Added OnComplete delegate to WhileTrueExecute action.
+* Added Stat command to monitor the plugin performance.
+* Added option to disable/enable compiler optimizations for easier debugging (to be set in the plugin's Build.cs file).
+* Ensure only those instances of the subsystem are ticking that were created withing the game world.
+
+=======================================================================================
+
+###### 2.1.2
+* Fixed an issue which could lead to duplicating InstanceIds.
+
+###### 2.1.1
+* Fixed all AsyncBP nodes. Using WorldContextObject instead of Proxy to determine Action Owner, so Actions started from BP can be stopped using StopAction with specified Owner set.
+
+###### 2.1.0
+* "Do No More Than X Time" action added which allows to enqueue to run the given block of code but no more often than a given amount of time.
+
+###### 2.0.1
+* Fix for the UECFActionBase forward declaration (@Matiis)
+
+###### 2.0.0
+* This version will probably break compatiblity with the previous one. Update with caution!
+* BIG refactor of BP nodes - better readability and functionality.
+* Added options to pause and resume running actions. Actions can also be started with pause enabled at the beginning.
+* Added option to pause the whole subsystem.
+* Async BP nodes sets action's owners to be themselves, not the WorldContextObjects.
+* Removed Static InstanceIds, as they had no valid purpose.
+* Added ToString node for ECFHandleBP.
+* Added ToString functionality to InstancedId (code and bp).
+* Added SetMaxActionTime() call to EVERY time dependent action.
+* Added ensure msgs for situations when actions couldn't be executed properly.
+* Removed Macro node for TimeLock and gave a convenient node to validate InstanceIds.
+* Ensure the Custom Timeline always has a valid owner when performing it's actions.
+
+=======================================================================================
+
+###### 1.6.1
+* Fixed ECFActionSettings macros
+
+###### 1.6.0
+* DoOnce action added.
+* DoNTimes action added.
+* Added an option to implement extra logic when instanced action is retriggered.
+
+###### 1.5.2
+* Redesigned Instanced Actions to be more useful and more readable.
+
+###### 1.5.1
+* Removed ECF_INSTANCEID macro as it was not needed.
+* Cleared up how Instanced Actions should be used.
+
+###### 1.5.0
+* Added possibility to create Instanced actions.
+* TimeLock action added.
+* Added possibility to check if FECFHandle is valid in BP.
+
+###### 1.4.4
+* Fixed broken by previous version `bComplete` param.
+* Fixed getting WorldContext in static functions, which was obtained by from invalid objects. 
+
+###### 1.4.3
+* Action validity checks
+* Crash fix
+
+###### 1.4.2
+* Additional checks for owners validity.
+
+###### 1.4.1
+* Added OnBegin exec to ECFDelay BP node, to have a chance to obtain a Handle.
+* Refactored BP names.
+* Optimized a little Handles moving.
+
+###### 1.4.0
+* Added `bComplete` parm to StopAction functions, which indicates if the Action should complete (run callback) when stopped, or just stopped without any extra action.
+* Fixed bug in `StopAllActions` with `InOwner` defined (it was stopping all actions without checking the Owner).
+* ECF_IGNOREPAUSEDILATION settings macro added which will ignore both pause and time dilation.
+* Minor fixes in code comments.
+* Moved Changelog to a separate file to clear up documentation.
+
+###### 1.3.1
+* **Blueprints support** has been added!
+* `First Delay` setting has been added.
+* Settings generating macros have been added.
+* Minor interface fixes.
+
+###### 1.2.0
+* Ignore game pause extra setting added.
+* Minor code readability improvements. 
+
+###### 1.1.1 
+* Ensure the time in timeline is always valid. 
+
+###### 1.1.0 
+* Option to set tick interval and to ignore global time dilation when launching each added action. Check `FECFActionSettings`
+* Added additional callback to tickers which will launch when ticker finishes.
+* Fixes to comments.    

@@ -25,3 +25,5 @@ Plugins/Developer/RiderLink
 .clang-format
 .clangd
 git-rm-cache.bat
+# SpecStory explanation file
+.specstory/.what-is-this.md

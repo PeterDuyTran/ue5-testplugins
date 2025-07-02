@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.5",
+	"EngineAssociation": "5.6",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -17,6 +17,18 @@
 			"TargetAllowList": [
 				"Editor"
 			]
+		},
+		{
+			"Name": "DTEditorLibrary",
+			"Enabled": true
+		},
+		{
+			"Name": "RemWidgetComponent",
+			"Enabled": true
+		},
+		{
+			"Name": "RemWidgetComponentEditor",
+			"Enabled": true
 		}
 	]
 }
